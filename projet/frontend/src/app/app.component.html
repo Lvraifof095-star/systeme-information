@@ -1,0 +1,22 @@
+<nav *ngIf="authService.isAuthentifie()">
+  <div class="logo-nav">
+    <img src="assets/Logo.png" alt="" />
+    <span>Gestion des stocks</span>
+  </div>
+  <a routerLink="/dashboard" routerLinkActive="active-route">Tableau de bord</a>
+  <a routerLink="/produits" routerLinkActive="active-route">Produits</a>
+  <a routerLink="/mouvements" routerLinkActive="active-route">Mouvements</a>
+  <a routerLink="/categories" routerLinkActive="active-route" *ngIf="authService.getRole() === 'ADMINISTRATEUR'">Catégories</a>
+  <a routerLink="/fournisseurs" routerLinkActive="active-route" *ngIf="authService.getRole() === 'ADMINISTRATEUR'">Fournisseurs</a>
+  <a routerLink="/alertes" routerLinkActive="active-route">Alertes</a>
+  <a routerLink="/rapports" routerLinkActive="active-route">Rapports</a>
+  <a routerLink="/utilisateurs" routerLinkActive="active-route" *ngIf="authService.getRole() === 'ADMINISTRATEUR'">Utilisateurs</a>
+  <button type="button" class="bouton-theme" (click)="themeService.basculer()" title="Changer d'apparence">
+    {{ themeService.theme === 'sombre' ? '☀️' : '🌙' }}
+  </button>
+  <button (click)="authService.logout()">Déconnexion</button>
+</nav>
+
+<main>
+  <router-outlet></router-outlet>
+</main>

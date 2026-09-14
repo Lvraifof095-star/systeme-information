@@ -1,0 +1,44 @@
+<div class="produit-list">
+  <h2>Gestion des produits</h2>
+
+  <div class="barre-recherche">
+    <input
+      type="text"
+      [(ngModel)]="motCle"
+      (keyup.enter)="rechercher()"
+      placeholder="Rechercher un produit..."
+    />
+    <button (click)="rechercher()">Rechercher</button>
+    <button class="bouton-principal" (click)="ajouter()">+ Ajouter un produit</button>
+  </div>
+
+  <table *ngIf="!chargement">
+    <thead>
+      <tr>
+        <th>Référence</th>
+        <th>Désignation</th>
+        <th>Catégorie</th>
+        <th>Prix unitaire</th>
+        <th>Quantité en stock</th>
+        <th>Seuil d'alerte</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let produit of produits" [class.alerte]="estEnAlerte(produit)">
+        <td>{{ produit.reference }}</td>
+        <td>{{ produit.designation }}</td>
+        <td>{{ produit.categorie?.nomCategorie }}</td>
+        <td>{{ produit.prixUnitaire | number: '1.2-2' }}</td>
+        <td>{{ produit.stock?.quantiteActuelle ?? 0 }}</td>
+        <td>{{ produit.seuilAlerte }}</td>
+        <td>
+          <button (click)="modifier(produit.idProduit)">Modifier</button>
+          <button (click)="supprimer(produit.idProduit)">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="chargement">Chargement des produits...</p>
+</div>

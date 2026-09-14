@@ -1,0 +1,49 @@
+<div class="categorie-list">
+  <h2>Gestion des catégories</h2>
+
+  <form class="barre-ajout" (ngSubmit)="ajouter()">
+    <input
+      type="text"
+      [(ngModel)]="nouvelleCategorie"
+      name="nouvelleCategorie"
+      placeholder="Nom de la nouvelle catégorie..."
+      aria-label="Nom de la nouvelle catégorie"
+    />
+    <button type="submit" class="bouton-principal" [disabled]="ajoutEnCours">
+      + Ajouter
+    </button>
+  </form>
+
+  <p class="erreur" *ngIf="erreur">{{ erreur }}</p>
+  <p *ngIf="chargement">Chargement...</p>
+
+  <table *ngIf="!chargement">
+    <thead>
+      <tr>
+        <th>Nom de la catégorie</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let categorie of categories">
+        <td *ngIf="idEnEdition !== categorie.idCategorie">{{ categorie.nomCategorie }}</td>
+        <td *ngIf="idEnEdition === categorie.idCategorie">
+          <input type="text" [(ngModel)]="valeurEdition" (keyup.enter)="enregistrerEdition(categorie.idCategorie)" />
+        </td>
+        <td>
+          <ng-container *ngIf="idEnEdition !== categorie.idCategorie">
+            <button (click)="commencerEdition(categorie)">Modifier</button>
+            <button (click)="supprimer(categorie.idCategorie)">Supprimer</button>
+          </ng-container>
+          <ng-container *ngIf="idEnEdition === categorie.idCategorie">
+            <button (click)="enregistrerEdition(categorie.idCategorie)">Enregistrer</button>
+            <button (click)="annulerEdition()">Annuler</button>
+          </ng-container>
+        </td>
+      </tr>
+      <tr *ngIf="categories.length === 0">
+        <td colspan="2">Aucune catégorie pour le moment.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

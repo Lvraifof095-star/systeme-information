@@ -1,0 +1,35 @@
+<div class="mouvement-recents">
+  <div class="entete-mouvements">
+    <h2>Mouvements récents</h2>
+    <a routerLink="/mouvements/nouveau" class="bouton-principal">+ Nouveau mouvement</a>
+  </div>
+
+  <p *ngIf="chargement">Chargement...</p>
+
+  <table *ngIf="!chargement">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Nature</th>
+        <th>Produit</th>
+        <th>Quantité</th>
+        <th>Utilisateur</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let mouvement of mouvements" [class.entree]="mouvement.typeMouvement === 'ENTREE'"
+          [class.sortie]="mouvement.typeMouvement === 'SORTIE'">
+        <td>{{ mouvement.date }} {{ mouvement.heure }}</td>
+        <td>{{ mouvement.typeMouvement === 'ENTREE' ? 'Entrée' : 'Sortie' }}</td>
+        <td>{{ mouvement.sousType }}</td>
+        <td>{{ mouvement.produit?.designation }}</td>
+        <td>{{ mouvement.quantite }}</td>
+        <td>{{ mouvement.utilisateur?.nom }}</td>
+      </tr>
+      <tr *ngIf="mouvements.length === 0">
+        <td colspan="6">Aucun mouvement enregistré pour le moment.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

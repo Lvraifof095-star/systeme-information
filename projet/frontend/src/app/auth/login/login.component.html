@@ -1,0 +1,29 @@
+<div class="ecran-connexion">
+  <div class="panneau-marque">
+    <img class="illustration-connexion" src="assets/Logo-hero.png" alt="" aria-hidden="true" />
+    <img class="logo-connexion" src="assets/Logo.png" alt="" />
+    <h1>Pilotez vos stocks <span>en toute clarté</span></h1>
+    <p>
+      Traçabilité des mouvements, alertes automatiques et tableau de bord
+      décisionnel réunis dans un seul système d'information.
+    </p>
+  </div>
+
+  <div class="panneau-formulaire">
+    <div class="login-container">
+      <h2>Connexion</h2>
+      <form (ngSubmit)="seConnecter()">
+        <label>
+          Email
+          <input type="email" [(ngModel)]="email" name="email" required autocomplete="username" />
+        </label>
+        <label>
+          Mot de passe
+          <input type="password" [(ngModel)]="motPasse" name="motPasse" required autocomplete="current-password" />
+        </label>
+        <p class="erreur" *ngIf="erreur">{{ erreur }}</p>
+        <button type="submit">Se connecter</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="produit-form">
+  <h2>{{ modeEdition ? 'Modifier le fournisseur' : 'Ajouter un fournisseur' }}</h2>
+
+  <form [formGroup]="formulaire" (ngSubmit)="enregistrer()">
+    <label>
+      Nom
+      <input type="text" formControlName="nom" />
+      <span class="champ-erreur" *ngIf="formulaire.get('nom')?.invalid && formulaire.get('nom')?.touched">
+        Le nom est obligatoire.
+      </span>
+    </label>
+
+    <label>
+      Contact (téléphone ou email)
+      <input type="text" formControlName="contact" />
+    </label>
+
+    <label>
+      Adresse
+      <input type="text" formControlName="adresse" />
+    </label>
+
+    <p class="erreur" *ngIf="erreur">{{ erreur }}</p>
+
+    <div class="actions-formulaire">
+      <button type="button" (click)="annuler()">Annuler</button>
+      <button type="submit" [disabled]="enregistrement">
+        {{ enregistrement ? 'Enregistrement...' : 'Enregistrer' }}
+      </button>
+    </div>
+  </form>
+</div>

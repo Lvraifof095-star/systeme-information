@@ -1,0 +1,30 @@
+<div class="alerte-list">
+  <h2>Alertes actives</h2>
+
+  <p *ngIf="chargement">Chargement...</p>
+
+  <table *ngIf="!chargement">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Produit</th>
+        <th>Date de génération</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let alerte of alertes" [class.rupture]="alerte.typeAlerte === 'RUPTURE'"
+          [class.faible]="alerte.typeAlerte === 'STOCK_FAIBLE'">
+        <td>{{ libelleType(alerte.typeAlerte) }}</td>
+        <td>{{ alerte.produit?.reference }} — {{ alerte.produit?.designation }}</td>
+        <td>{{ alerte.dateGeneration }}</td>
+        <td>
+          <button (click)="traiter(alerte.idAlerte)">Marquer comme traitée</button>
+        </td>
+      </tr>
+      <tr *ngIf="alertes.length === 0">
+        <td colspan="4">Aucune alerte active. Tout est sous contrôle.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

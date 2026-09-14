@@ -1,0 +1,40 @@
+<div class="utilisateur-list">
+  <div class="entete-mouvements">
+    <h2>Gestion des utilisateurs</h2>
+    <button class="bouton-principal" (click)="ajouter()">+ Ajouter un utilisateur</button>
+  </div>
+
+  <p class="erreur" *ngIf="erreur">{{ erreur }}</p>
+  <p class="succes" *ngIf="message">{{ message }}</p>
+  <p *ngIf="chargement">Chargement...</p>
+
+  <table *ngIf="!chargement">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Email</th>
+        <th>Rôle</th>
+        <th>Actif</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let utilisateur of utilisateurs">
+        <td>{{ utilisateur.nom }}</td>
+        <td>{{ utilisateur.prenom }}</td>
+        <td>{{ utilisateur.email }}</td>
+        <td>{{ utilisateur.role?.nomRole }}</td>
+        <td>{{ utilisateur.actif ? 'Oui' : 'Non' }}</td>
+        <td>
+          <button (click)="modifier(utilisateur.idUtilisateur)">Modifier</button>
+          <button (click)="reinitialiserMotPasse(utilisateur.idUtilisateur)">Réinitialiser mot de passe</button>
+          <button (click)="supprimer(utilisateur.idUtilisateur)">Supprimer</button>
+        </td>
+      </tr>
+      <tr *ngIf="utilisateurs.length === 0">
+        <td colspan="6">Aucun utilisateur pour le moment.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,112 @@
+<div class="dashboard">
+  <h2>Tableau de bord décisionnel</h2>
+
+  <p *ngIf="chargement">Chargement des indicateurs...</p>
+
+  <div class="cartes-kpi" *ngIf="kpi">
+    <div class="carte">
+      <span class="valeur">{{ kpi.nombreTotalProduits }}</span>
+      <span class="libelle">Produits référencés</span>
+    </div>
+    <div class="carte">
+      <span class="valeur">{{ kpi.valeurTotaleStock | number: '1.0-2' }}</span>
+      <span class="libelle">Valeur totale du stock</span>
+    </div>
+    <div class="carte alerte" *ngIf="kpi.produitsEnRupture > 0">
+      <span class="valeur">{{ kpi.produitsEnRupture }}</span>
+      <span class="libelle">Produits en rupture</span>
+    </div>
+    <div class="carte attention" *ngIf="kpi.produitsProchesDeLaRupture > 0">
+      <span class="valeur">{{ kpi.produitsProchesDeLaRupture }}</span>
+      <span class="libelle">Proches de la rupture</span>
+    </div>
+    <div class="carte">
+      <span class="valeur">{{ kpi.tauxDeRupture | number: '1.1-1' }}%</span>
+      <span class="libelle">Taux de rupture</span>
+    </div>
+    <div class="carte">
+      <span class="valeur">{{ kpi.tauxDeRotation | number: '1.2-2' }}</span>
+      <span class="libelle">Taux de rotation</span>
+    </div>
+    <div class="carte">
+      <span class="valeur">{{ kpi.entreesDuJour }}</span>
+      <span class="libelle">Entrées du jour</span>
+    </div>
+    <div class="carte">
+      <span class="valeur">{{ kpi.sortiesDuJour }}</span>
+      <span class="libelle">Sorties du jour</span>
+    </div>
+    <div class="carte">
+      <span class="valeur">{{ kpi.tauxDisponibilite | number: '1.1-1' }}%</span>
+      <span class="libelle">Taux de disponibilité</span>
+    </div>
+    <div class="carte" *ngIf="kpi.delaiMoyenReapprovisionnementJours !== null">
+      <span class="valeur">{{ kpi.delaiMoyenReapprovisionnementJours | number: '1.1-1' }} j</span>
+      <span class="libelle">Délai moyen de réapprovisionnement</span>
+    </div>
+    <div class="carte" *ngIf="kpi.delaiMoyenReapprovisionnementJours === null">
+      <span class="valeur">—</span>
+      <span class="libelle">Délai de réappro. (pas encore de donnée)</span>
+    </div>
+  </div>
+
+  <div class="grille-graphiques">
+    <div class="bloc-graphique">
+      <h3>Évolution des mouvements (14 derniers jours)</h3>
+      <canvas
+        baseChart
+        [data]="evolutionChartData"
+        [options]="evolutionChartOptions"
+        [type]="evolutionChartType"
+      ></canvas>
+    </div>
+
+    <div class="bloc-graphique">
+      <h3>Répartition des produits par catégorie</h3>
+      <canvas
+        baseChart
+        [data]="repartitionChartData"
+        [options]="repartitionChartOptions"
+        [type]="repartitionChartType"
+      ></canvas>
+    </div>
+  </div>
+
+  <div class="grille-classements" *ngIf="kpi">
+    <div class="bloc-graphique">
+      <h3>Produits les plus utilisés (30 derniers jours)</h3>
+      <table class="table-classement">
+        <thead>
+          <tr><th>Produit</th><th>Quantité sortie</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of kpi.produitsPlusUtilises">
+            <td>{{ p.reference }} — {{ p.designation }}</td>
+            <td>{{ p.quantiteSortie }}</td>
+          </tr>
+          <tr *ngIf="kpi.produitsPlusUtilises.length === 0">
+            <td colspan="2">Aucune sortie enregistrée sur la période.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bloc-graphique">
+      <h3>Produits les moins utilisés (30 derniers jours)</h3>
+      <table class="table-classement">
+        <thead>
+          <tr><th>Produit</th><th>Quantité sortie</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of kpi.produitsMoinsUtilises">
+            <td>{{ p.reference }} — {{ p.designation }}</td>
+            <td>{{ p.quantiteSortie }}</td>
+          </tr>
+          <tr *ngIf="kpi.produitsMoinsUtilises.length === 0">
+            <td colspan="2">Aucune sortie enregistrée sur la période.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

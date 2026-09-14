@@ -1,0 +1,34 @@
+<div class="fournisseur-list">
+  <div class="entete-mouvements">
+    <h2>Gestion des fournisseurs</h2>
+    <button class="bouton-principal" (click)="ajouter()">+ Ajouter un fournisseur</button>
+  </div>
+
+  <p class="erreur" *ngIf="erreur">{{ erreur }}</p>
+  <p *ngIf="chargement">Chargement...</p>
+
+  <table *ngIf="!chargement">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Contact</th>
+        <th>Adresse</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let fournisseur of fournisseurs">
+        <td>{{ fournisseur.nom }}</td>
+        <td>{{ fournisseur.contact }}</td>
+        <td>{{ fournisseur.adresse }}</td>
+        <td>
+          <button (click)="modifier(fournisseur.idFournisseur)">Modifier</button>
+          <button (click)="supprimer(fournisseur.idFournisseur)">Supprimer</button>
+        </td>
+      </tr>
+      <tr *ngIf="fournisseurs.length === 0">
+        <td colspan="4">Aucun fournisseur pour le moment.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,58 @@
+<div class="produit-form">
+  <h2>{{ modeEdition ? 'Modifier le produit' : 'Ajouter un produit' }}</h2>
+
+  <form [formGroup]="formulaire" (ngSubmit)="enregistrer()">
+    <label>
+      Référence
+      <input type="text" formControlName="reference" />
+      <span class="champ-erreur" *ngIf="formulaire.get('reference')?.invalid && formulaire.get('reference')?.touched">
+        La référence est obligatoire.
+      </span>
+    </label>
+
+    <label>
+      Désignation
+      <input type="text" formControlName="designation" />
+      <span class="champ-erreur" *ngIf="formulaire.get('designation')?.invalid && formulaire.get('designation')?.touched">
+        La désignation est obligatoire.
+      </span>
+    </label>
+
+    <label>
+      Catégorie
+      <select formControlName="idCategorie">
+        <option [ngValue]="null" disabled>-- Choisir une catégorie --</option>
+        <option *ngFor="let categorie of categories" [ngValue]="categorie.idCategorie">
+          {{ categorie.nomCategorie }}
+        </option>
+      </select>
+      <span class="champ-erreur" *ngIf="formulaire.get('idCategorie')?.invalid && formulaire.get('idCategorie')?.touched">
+        Veuillez choisir une catégorie.
+      </span>
+    </label>
+
+    <label>
+      Prix unitaire
+      <input type="number" step="0.01" min="0" formControlName="prixUnitaire" />
+    </label>
+
+    <label>
+      Seuil d'alerte
+      <input type="number" min="0" formControlName="seuilAlerte" />
+    </label>
+
+    <label>
+      Code-barres (optionnel)
+      <input type="text" formControlName="codeBarre" />
+    </label>
+
+    <p class="erreur" *ngIf="erreur">{{ erreur }}</p>
+
+    <div class="actions-formulaire">
+      <button type="button" (click)="annuler()">Annuler</button>
+      <button type="submit" [disabled]="enregistrement">
+        {{ enregistrement ? 'Enregistrement...' : 'Enregistrer' }}
+      </button>
+    </div>
+  </form>
+</div>

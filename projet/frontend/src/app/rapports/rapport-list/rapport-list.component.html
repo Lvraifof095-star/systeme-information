@@ -1,0 +1,51 @@
+<div class="rapport-list">
+  <h2>Rapports</h2>
+  <p class="erreur" *ngIf="erreur">{{ erreur }}</p>
+  <p *ngIf="enCours">Génération du rapport en cours...</p>
+
+  <div class="carte-rapport">
+    <h3>Rapport des produits</h3>
+    <p>Liste complète des produits référencés, avec catégorie, prix et seuil d'alerte.</p>
+    <div class="boutons-rapport">
+      <button (click)="telechargerProduitsExcel()">Télécharger Excel</button>
+      <button (click)="telechargerProduitsPdf()">Télécharger PDF</button>
+    </div>
+  </div>
+
+  <div class="carte-rapport">
+    <h3>Rapport des stocks</h3>
+    <p>Quantités disponibles, valeur du stock et état (normal, stock faible, rupture) pour chaque produit.</p>
+    <div class="boutons-rapport">
+      <button (click)="telechargerStockExcel()">Télécharger Excel</button>
+      <button (click)="telechargerStockPdf()">Télécharger PDF</button>
+    </div>
+  </div>
+
+  <div class="carte-rapport">
+    <h3>Rapport des fournisseurs</h3>
+    <p>Liste des fournisseurs enregistrés avec leurs coordonnées.</p>
+    <div class="boutons-rapport">
+      <button (click)="telechargerFournisseursExcel()">Télécharger Excel</button>
+      <button (click)="telechargerFournisseursPdf()">Télécharger PDF</button>
+    </div>
+  </div>
+
+  <div class="carte-rapport">
+    <h3>Rapport des mouvements</h3>
+    <p>Historique des entrées et sorties de stock sur une période donnée.</p>
+    <div class="periode-rapport">
+      <label>
+        Du
+        <input type="date" [(ngModel)]="debut" />
+      </label>
+      <label>
+        Au
+        <input type="date" [(ngModel)]="fin" />
+      </label>
+    </div>
+    <div class="boutons-rapport">
+      <button (click)="telechargerMouvementsExcel()">Télécharger Excel</button>
+      <button (click)="telechargerMouvementsPdf()">Télécharger PDF</button>
+    </div>
+  </div>
+</div>

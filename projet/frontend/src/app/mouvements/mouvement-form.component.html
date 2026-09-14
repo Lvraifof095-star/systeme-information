@@ -1,0 +1,67 @@
+<div class="mouvement-form">
+  <h2>Enregistrer un mouvement de stock</h2>
+
+  <form [formGroup]="formulaire" (ngSubmit)="enregistrer()">
+    <label>
+      Type de mouvement
+      <select formControlName="typeMouvement">
+        <option value="ENTREE">Entrée</option>
+        <option value="SORTIE">Sortie</option>
+      </select>
+    </label>
+
+    <label>
+      Nature de l'opération
+      <select formControlName="sousType">
+        <option *ngFor="let sousType of sousTypesDisponibles" [value]="sousType">{{ sousType }}</option>
+      </select>
+    </label>
+
+    <label>
+      Produit
+      <select formControlName="idProduit">
+        <option [ngValue]="null" disabled>-- Choisir un produit --</option>
+        <option *ngFor="let produit of produits" [ngValue]="produit.idProduit">
+          {{ produit.reference }} — {{ produit.designation }}
+          (stock actuel : {{ produit.stock?.quantiteActuelle ?? 0 }})
+        </option>
+      </select>
+      <span class="champ-erreur" *ngIf="formulaire.get('idProduit')?.invalid && formulaire.get('idProduit')?.touched">
+        Veuillez choisir un produit.
+      </span>
+    </label>
+
+    <label>
+      Quantité
+      <input type="number" min="1" formControlName="quantite" />
+    </label>
+
+    <label *ngIf="estApprovisionnement">
+      Fournisseur
+      <select formControlName="idFournisseur">
+        <option [ngValue]="null">-- Aucun --</option>
+        <option *ngFor="let fournisseur of fournisseurs" [ngValue]="fournisseur.idFournisseur">
+          {{ fournisseur.nom }}
+        </option>
+      </select>
+    </label>
+
+    <label *ngIf="estApprovisionnement">
+      Date de commande
+      <input type="date" formControlName="dateCommande" />
+      <span class="champ-erreur" *ngIf="!formulaire.value.dateCommande">
+        Nécessaire pour calculer le délai moyen de réapprovisionnement.
+      </span>
+    </label>
+
+    <p class="erreur" *ngIf="erreur">{{ erreur }}</p>
+    <p class="succes" *ngIf="succes">{{ succes }}</p>
+
+    <div class="actions-formulaire">
+      <button type="button" (click)="annuler()">Retour aux produits</button>
+      <button type="submit" [disabled]="enregistrement">
+        {{ enregistrement ? 'Enregistrement...' : 'Enregistrer le mouvement' }}
+      </button>
+    </div>
+  </form>
+</div>

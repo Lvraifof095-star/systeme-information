@@ -1,0 +1,59 @@
+<div class="produit-form">
+  <h2>{{ modeEdition ? "Modifier l'utilisateur" : 'Ajouter un utilisateur' }}</h2>
+
+  <form [formGroup]="formulaire" (ngSubmit)="enregistrer()">
+    <label>
+      Nom
+      <input type="text" formControlName="nom" />
+      <span class="champ-erreur" *ngIf="formulaire.get('nom')?.invalid && formulaire.get('nom')?.touched">
+        Le nom est obligatoire.
+      </span>
+    </label>
+
+    <label>
+      Prénom
+      <input type="text" formControlName="prenom" />
+    </label>
+
+    <label>
+      Email
+      <input type="email" formControlName="email" />
+      <span class="champ-erreur" *ngIf="formulaire.get('email')?.invalid && formulaire.get('email')?.touched">
+        Un email valide est requis.
+      </span>
+    </label>
+
+    <label *ngIf="!modeEdition">
+      Mot de passe initial
+      <input type="password" formControlName="motPasse" />
+    </label>
+    <p *ngIf="modeEdition" class="info-champ">
+      Pour changer le mot de passe, utilisez "Réinitialiser mot de passe" depuis la liste des utilisateurs.
+    </p>
+
+    <label>
+      Rôle
+      <select formControlName="idRole">
+        <option [ngValue]="null" disabled>-- Choisir un rôle --</option>
+        <option *ngFor="let role of roles" [ngValue]="role.idRole">{{ role.nomRole }}</option>
+      </select>
+      <span class="champ-erreur" *ngIf="formulaire.get('idRole')?.invalid && formulaire.get('idRole')?.touched">
+        Veuillez choisir un rôle.
+      </span>
+    </label>
+
+    <label class="case-active">
+      <input type="checkbox" formControlName="actif" />
+      Compte actif
+    </label>
+
+    <p class="erreur" *ngIf="erreur">{{ erreur }}</p>
+
+    <div class="actions-formulaire">
+      <button type="button" (click)="annuler()">Annuler</button>
+      <button type="submit" [disabled]="enregistrement">
+        {{ enregistrement ? 'Enregistrement...' : 'Enregistrer' }}
+      </button>
+    </div>
+  </form>
+</div>

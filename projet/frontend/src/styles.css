@@ -1,0 +1,476 @@
+/* =========================================================
+   Système d'information intelligent de gestion des stocks
+   Feuille de style globale — palette, typographie, mode nuit
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+:root {
+  /* --- Palette : mode clair --- */
+  --bg: #EDF1EF;
+  --surface: #FFFFFF;
+  --surface-soft: #F5F7F6;
+  --ink: #16241F;
+  --ink-soft: #4B5B54;
+  --line: #DCE3DF;
+
+  --primary: #0B6E4F;
+  --primary-dark: #06432F;
+  --primary-soft: #E3F3EB;
+
+  --accent: #2B6CB0;
+  --accent-soft: #E5EFFA;
+
+  --warn: #B5750F;
+  --warn-soft: #FBF0DD;
+
+  --danger: #9A3412;
+  --danger-soft: #FBE9E1;
+
+  --radius: 10px;
+  --shadow: 0 1px 2px rgba(15, 30, 24, 0.06), 0 1px 1px rgba(15, 30, 24, 0.04);
+  --shadow-raised: 0 8px 24px rgba(15, 30, 24, 0.12);
+
+  --font-titre: 'Space Grotesk', 'Segoe UI', sans-serif;
+  --font-texte: 'IBM Plex Sans', 'Segoe UI', sans-serif;
+}
+
+[data-theme='sombre'] {
+  --bg: #101A16;
+  --surface: #17231D;
+  --surface-soft: #1D2B24;
+  --ink: #E8EFEA;
+  --ink-soft: #A9BAB1;
+  --line: #2A3A32;
+
+  --primary: #35C48C;
+  --primary-dark: #1F8F63;
+  --primary-soft: #163326;
+
+  --accent: #6FA8DC;
+  --accent-soft: #16283A;
+
+  --warn: #E0A63C;
+  --warn-soft: #362A11;
+
+  --danger: #E0714A;
+  --danger-soft: #37190F;
+
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.24);
+  --shadow-raised: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+* { box-sizing: border-box; }
+
+html { color-scheme: light; }
+html[data-theme='sombre'] { color-scheme: dark; }
+
+body {
+  font-family: var(--font-texte);
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  transition: background-color 0.2s ease, color 0.2s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-titre);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+h2 { font-size: 22px; margin: 0 0 16px; }
+h3 { font-size: 16px; margin: 0 0 8px; }
+
+a { color: var(--primary); }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------
+   Barre de navigation
+   --------------------------------------------------------- */
+nav {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: 10px 20px;
+  background: var(--primary-dark);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.logo-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 12px;
+  padding-right: 12px;
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+}
+.logo-nav img { height: 28px; width: 28px; display: block; }
+.logo-nav span {
+  font-family: var(--font-titre);
+  font-weight: 600;
+  font-size: 14px;
+  color: white;
+  white-space: nowrap;
+}
+
+nav a {
+  color: rgba(255, 255, 255, 0.82);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+nav a:hover { background: rgba(255, 255, 255, 0.1); color: white; }
+nav a.active-route { background: rgba(255, 255, 255, 0.14); color: white; }
+
+.bouton-theme {
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: white;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+.bouton-theme:hover { background: rgba(255, 255, 255, 0.12); }
+
+nav button:not(.bouton-theme) {
+  margin-left: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: var(--font-texte);
+  font-size: 14px;
+}
+nav button:not(.bouton-theme):hover { background: rgba(255, 255, 255, 0.18); }
+
+main { padding: 28px; max-width: 1400px; margin: 0 auto; }
+
+/* ---------------------------------------------------------
+   Tables
+   --------------------------------------------------------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+th, td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  font-size: 14px;
+}
+th {
+  font-family: var(--font-titre);
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: none;
+  color: var(--ink-soft);
+  background: var(--surface-soft);
+}
+tr:last-child td { border-bottom: none; }
+tr.alerte { background: var(--danger-soft); }
+
+/* ---------------------------------------------------------
+   Boutons
+   --------------------------------------------------------- */
+button {
+  font-family: var(--font-texte);
+}
+table button {
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  margin-right: 6px;
+}
+table button:hover { border-color: var(--primary); color: var(--primary); }
+
+.bouton-principal {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 9px 18px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-block;
+}
+.bouton-principal:hover { background: var(--primary-dark); }
+
+/* ---------------------------------------------------------
+   Recherche / barres d'outils
+   --------------------------------------------------------- */
+.barre-recherche, .barre-ajout { display: flex; gap: 8px; margin-bottom: 18px; }
+.barre-recherche input, .barre-ajout input {
+  flex: 1;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 14px;
+}
+.barre-recherche button, .barre-ajout button {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  padding: 9px 16px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+/* ---------------------------------------------------------
+   KPI / cartes du tableau de bord
+   --------------------------------------------------------- */
+.cartes-kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+.carte {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--primary);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  box-shadow: var(--shadow);
+}
+.carte .valeur { display: block; font-family: var(--font-titre); font-size: 26px; font-weight: 600; color: var(--ink); }
+.carte .libelle { color: var(--ink-soft); font-size: 13px; }
+.carte.alerte { border-left-color: var(--danger); }
+.carte.alerte .valeur { color: var(--danger); }
+.carte.attention { border-left-color: var(--warn); }
+.carte.attention .valeur { color: var(--warn); }
+
+/* ---------------------------------------------------------
+   Formulaires (produit, mouvement, fournisseur, utilisateur)
+   --------------------------------------------------------- */
+.produit-form, .mouvement-form {
+  max-width: 480px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 26px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.produit-form form, .mouvement-form form { display: flex; flex-direction: column; gap: 14px; }
+.produit-form label, .mouvement-form label {
+  display: flex; flex-direction: column; gap: 5px;
+  font-weight: 500; font-size: 13px; color: var(--ink-soft);
+}
+.produit-form input, .produit-form select,
+.mouvement-form input, .mouvement-form select {
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: normal;
+  font-size: 14px;
+  font-family: var(--font-texte);
+}
+.champ-erreur { color: var(--danger); font-size: 12px; font-weight: normal; }
+.info-champ { font-size: 13px; color: var(--ink-soft); margin: -4px 0 4px; }
+.case-active { flex-direction: row !important; align-items: center; gap: 8px !important; }
+.case-active input { width: auto; }
+
+.actions-formulaire { display: flex; gap: 8px; justify-content: flex-end; margin-top: 8px; }
+.actions-formulaire button[type='submit'] {
+  background: var(--primary); color: white; border: none;
+  padding: 9px 20px; border-radius: 7px; cursor: pointer; font-weight: 500;
+}
+.actions-formulaire button[type='submit']:hover { background: var(--primary-dark); }
+.actions-formulaire button[type='button'] {
+  background: var(--surface-soft); border: 1px solid var(--line); color: var(--ink);
+  padding: 9px 20px; border-radius: 7px; cursor: pointer;
+}
+
+.erreur { color: var(--danger); font-size: 14px; }
+.succes { color: var(--primary); font-weight: 600; }
+
+/* ---------------------------------------------------------
+   Connexion — panneau scindé
+   --------------------------------------------------------- */
+.ecran-connexion {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.panneau-marque {
+  background: linear-gradient(160deg, var(--primary-dark) 0%, #0A3A2C 55%, #071F19 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px;
+  position: relative;
+  overflow: hidden;
+}
+.panneau-marque::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: radial-gradient(circle at 30% 40%, black, transparent 70%);
+}
+.illustration-connexion {
+  position: absolute;
+  right: -60px;
+  bottom: -60px;
+  width: 480px;
+  max-width: 60%;
+  opacity: 0.16;
+  filter: saturate(0.6) brightness(1.4);
+  pointer-events: none;
+  user-select: none;
+}
+.panneau-marque img.logo-connexion { height: 72px; margin-bottom: 28px; position: relative; }
+.panneau-marque h1 {
+  font-family: var(--font-titre);
+  font-size: 30px;
+  line-height: 1.2;
+  margin: 0 0 14px;
+  max-width: 380px;
+  position: relative;
+}
+.panneau-marque h1 span { color: #6FE3AE; }
+.panneau-marque p {
+  color: rgba(255,255,255,0.72);
+  max-width: 360px;
+  line-height: 1.6;
+  position: relative;
+  font-size: 14.5px;
+}
+.panneau-formulaire {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  padding: 40px;
+}
+.login-container {
+  max-width: 360px;
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 32px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-raised);
+}
+.login-container h2 { margin-bottom: 22px; }
+.login-container form { display: flex; flex-direction: column; gap: 14px; }
+.login-container label { display: flex; flex-direction: column; gap: 5px; font-size: 13px; color: var(--ink-soft); font-weight: 500; }
+.login-container input {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 14px;
+}
+.login-container button[type='submit'] {
+  margin-top: 6px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 11px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14.5px;
+}
+.login-container button[type='submit']:hover { background: var(--primary-dark); }
+
+@media (max-width: 860px) {
+  .ecran-connexion { grid-template-columns: 1fr; }
+  .panneau-marque { padding: 40px 28px; min-height: 220px; }
+}
+
+/* ---------------------------------------------------------
+   Rapports
+   --------------------------------------------------------- */
+.rapport-list { max-width: 640px; }
+.carte-rapport {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+.carte-rapport h3 { margin-top: 0; }
+.carte-rapport p { color: var(--ink-soft); font-size: 14px; }
+.boutons-rapport { display: flex; gap: 8px; margin-top: 12px; }
+.boutons-rapport button {
+  background: var(--primary); color: white; border: none;
+  padding: 8px 16px; border-radius: 7px; cursor: pointer;
+}
+.boutons-rapport button:last-child { background: var(--accent); }
+.periode-rapport { display: flex; gap: 16px; margin-top: 12px; }
+.periode-rapport label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--ink-soft); }
+.periode-rapport input {
+  padding: 7px; border: 1px solid var(--line); border-radius: 6px;
+  background: var(--surface); color: var(--ink);
+}
+
+/* ---------------------------------------------------------
+   Graphiques du tableau de bord
+   --------------------------------------------------------- */
+.grille-graphiques { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-top: 24px; }
+.bloc-graphique {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+.bloc-graphique h3 { margin-top: 0; font-size: 15px; color: var(--ink); }
+
+.grille-classements { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+.table-classement { width: 100%; border-collapse: collapse; }
+.table-classement th, .table-classement td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; font-size: 14px; }
+
+@media (max-width: 900px) {
+  .grille-graphiques { grid-template-columns: 1fr; }
+  .grille-classements { grid-template-columns: 1fr; }
+}
+
+/* ---------------------------------------------------------
+   Divers écrans (catégories, mouvements récents, entête)
+   --------------------------------------------------------- */
+.categorie-list { max-width: 700px; }
+.categorie-list table input { padding: 7px; border: 1px solid var(--line); border-radius: 6px; width: 100%; background: var(--surface); color: var(--ink); }
+
+.entete-mouvements { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+.entete-mouvements .bouton-principal { text-decoration: none; }
+tr.entree td:nth-child(2) { color: var(--primary); font-weight: 600; }
+tr.sortie td:nth-child(2) { color: var(--danger); font-weight: 600; }
+
+.alerte-list tr.rupture td:first-child { color: var(--danger); font-weight: 700; }
+.alerte-list tr.faible td:first-child { color: var(--warn); font-weight: 700; }
